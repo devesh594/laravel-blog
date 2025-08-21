@@ -5,10 +5,9 @@
                 <div class="col-8 mx-auto text-center">
                     <h2 class="mb-3 text-capitalize">Our Team</h2>
                     <ul class="list-inline breadcrumbs text-capitalize" style="font-weight:500">
-                        <li class="list-inline-item"><a wire:navigate href="{{ route('home') }}">Home</a>
+                        <li class="list-inline-item"><a href="{{ route('home') }}" wire:navigate>Home</a>
                         </li>
-                        <li class="list-inline-item">/ &nbsp; <a href="services.html">Our Team</a>
-                        </li>
+                        <li class="list-inline-item">/ &nbsp; Our Team</li>
                     </ul>
                 </div>
             </div>
@@ -76,7 +75,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row position-relative">
+            <div class="row position-relative justify-content-center">
 
                 @if ($members->isNotEmpty())
                     @foreach ($members as $member)

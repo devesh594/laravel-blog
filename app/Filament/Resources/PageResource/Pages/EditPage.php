@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\ArticleResource\Pages;
+namespace App\Filament\Resources\PageResource\Pages;
 
-use App\Filament\Resources\ArticleResource;
+use App\Filament\Resources\PageResource;
 use Filament\Actions;
-use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Notifications\Notification;
 
-class EditArticle extends EditRecord
+class EditPage extends EditRecord
 {
-    protected static string $resource = ArticleResource::class;
+    protected static string $resource = PageResource::class;
 
     protected function getHeaderActions(): array
     {
@@ -17,7 +17,6 @@ class EditArticle extends EditRecord
             Actions\DeleteAction::make(),
         ];
     }
-
 
     protected function getRedirectUrl(): string
     {
@@ -30,7 +29,7 @@ class EditArticle extends EditRecord
     {
         return Notification::make()
             ->success()
-            ->title('Article created')
-            ->body('Article created successfully.');
+            ->title('Page created')
+            ->body('Page created successfully.');
     }
 }

@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>{{ $title ?? 'Laravel livewirw Title' }}</title>
+    <title>{{ $title ?? 'Laravel livewirw Web App' }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="This is meta description" />
     <meta name="author" content="Themefisher" />
@@ -29,8 +29,8 @@
 
 <body>
     <!-- navigation -->
-    <header class="navigation bg-tertiary">
-        <nav class="navbar navbar-expand-xl navbar-light text-center py-3">
+    <header class="navigation bg-tertiary bg-light">
+        <nav class="navbar navbar-expand-xl navbar-light text-center py-3 bg-light">
             <div class="container">
                 <a class="navbar-brand" wire:navigate href="{{ route('home') }}">
                     <img loading="prelaod" decoding="async" class="img-fluid" width="160"
@@ -44,25 +44,27 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav m-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a wire:navigate class="nav-link" href="{{ route('home') }}">Home</a>
+                            <a class="nav-link" wire:navigate href="{{ route('home') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="about.html">About Us</a>
+                            <a class="nav-link" wire:navigate href="{{ route('page', ['slug' => 'beauty']) }}">About
+                                Us</a>
                         </li>
                         <li class="nav-item">
-                            <a wire:navigate class="nav-link" href="{{ route('servicesPage') }}">Services</a>
+                            <a class="nav-link" wire:navigate href="{{ route('servicesPage') }}">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a wire:navigate class="nav-link" href="{{ route('teamPage') }}">Our Team</a>
+                            <a class="nav-link" wire:navigate href="{{ route('teamPage') }}">Our Team</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="blog.html">Blog</a>
+                            <a class="nav-link" wire:navigate href="{{ route('blog') }}">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="faq.html">FAQ</a>
+                            <a class="nav-link" wire:navigate href="{{ route('faqs') }} ">FAQ</a>
                         </li>
                     </ul>
-                    <a href="#!" class="btn btn-outline-primary">Contact Us</a>
+                    <a href="{{ route('contact') }}" class="btn btn-outline-primary">Contact Us</a>
+                    {{-- <a href="#" class="btn btn-outline-primary">Contact Us</a> --}}
                 </div>
             </div>
         </nav>
@@ -129,55 +131,92 @@
     {{ $slot }}
 
 
-    <footer class="section-sm bg-tertiary">
+    <footer class="section-sm bg-tertiary custom-footer">
         <div class="container">
-            <div class="row justify-content-between">
-                <div class="col-lg-2 col-md-4 col-6 mb-4">
-                    <div class="footer-widget">
-                        <h5 class="mb-4 text-primary font-secondary">Service</h5>
-                        <ul class="list-unstyled">
-                            <li class="mb-2">
-                                <a href="service-details.html">Digital Marketing</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="service-details.html">Web Design</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="service-details.html">Logo Design</a>
-                            </li>
-                            <li class="mb-2">
-                                <a href="service-details.html">Graphic Design</a>
-                            </li>
-                            <li class="mb-2"><a href="service-details.html">SEO</a></li>
-                        </ul>
+            <div class="row">
+                {{-- <div class="row justify-content-between">
+                    <div class="col-lg-2 col-md-4 col-6 mb-4">
+                        <div class="footer-widget">
+                            <h5 class="mb-4 text-primary font-secondary">WEB APP</h5>
+                            <div>
+                                <p style="color: black; font-size: 18px;">Built with Laravel and Livewire, the app
+                                    ensures
+                                    smooth interaction, real-time feedback, and automated email delivery.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
+                <div class="row justify-content-between">
+                    <div class="col-lg-2 col-md-4 col-6 mb-4">
+                        <div class="footer-widget">
+                            <h5 class="mb-4 text-primary font-secondary">Service</h5>
+                            <ul class="list-unstyled">
+                                @foreach (getServices() as $service)
+                                    <li class="mb-2">
+                                        <a href="{{ route('servicePage', $service->id) }}"
+                                            wire:navigate>{{ $service->title }}</a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 mb-4">
+                        <div class="footer-widget">
+                            <h5 class="mb-4 text-primary font-secondary">Quick Links</h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><a href="{{ route('page', 'beauty') }}" wire:navigate>About
+                                        Us</a></li>
+                                <li class="mb-2"><a href="{{ route('contact') }}" wire:navigate>Contact Us</a>
+                                </li>
+                                <li class="mb-2"><a href="{{ route('blog') }}" wire:navigate>Blog</a></li>
+                                <li class="mb-2"><a href="{{ route('teamPage') }}" wire:navigate>Team</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-4 col-6 mb-4">
+                        <div class="footer-widget">
+                            <h5 class="mb-4 text-primary font-secondary">Other Links</h5>
+                            <ul class="list-unstyled">
+                                <li class="list-inline-item me-4">
+                                    <a class="text-black" href="{{ route('page', 'privacy') }}" wire:navigate>Privacy
+                                        Policy</a>
+                                </li>
+                                <li class="list-inline-item me-4">
+                                    <a class="text-black" href="{{ route('page', 'Terms') }}" wire:navigate>Terms
+                                        &amp;
+                                        Conditions</a>
+                                </li>
+                            </ul>
+                            <div class="block">
+                                <ul class="list-unstyled list-inline my-4 social-icons">
+                                    <li class="list-inline-item me-3"><a title="Explorer Facebook Profile"
+                                            class="text-black" href="https://facebook.com/"><i
+                                                class="fab fa-facebook-f"></i></a>
+                                    </li>
+                                    <li class="list-inline-item me-3"><a title="Explorer Twitter Profile"
+                                            class="text-black" href="https://twitter.com/"><i
+                                                class="fab fa-twitter"></i></a>
+                                    </li>
+                                    <li class="list-inline-item me-3"><a title="Explorer Instagram Profile"
+                                            class="text-black" href="https://instagram.com/"><i
+                                                class="fab fa-instagram"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-6 mb-4">
-                    <div class="footer-widget">
-                        <h5 class="mb-4 text-primary font-secondary">Quick Links</h5>
-                        <ul class="list-unstyled">
-                            <li class="mb-2"><a href="#!">About Us</a></li>
-                            <li class="mb-2"><a href="#!">Contact Us</a></li>
-                            <li class="mb-2"><a href="#!">Blog</a></li>
-                            <li class="mb-2"><a href="#!">Team</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-4 col-6 mb-4">
-                    <div class="footer-widget">
-                        <h5 class="mb-4 text-primary font-secondary">Other Links</h5>
-                        <ul class="list-unstyled">
-                            <li class="list-inline-item me-4">
-                                <a class="text-black" href="privacy-policy.html">Privacy Policy</a>
-                            </li>
-                            <li class="list-inline-item me-4">
-                                <a class="text-black" href="terms.html">Terms &amp; Conditions</a>
-                            </li>
-                        </ul>
+                <hr color="black">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer-bottom text-center">
+                            <p class="mb-0">&copy; {{ date('Y') }} <a href="{{ route('home') }}"
+                                    wire:navigate>Wallet</a>
+                                All rights reserved.</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </footer>
 
     <!-- # JS Plugins -->

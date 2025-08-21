@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Filament\Resources\ArticleResource\Pages;
+namespace App\Filament\Resources\FaqResource\Pages;
 
-use App\Filament\Resources\ArticleResource;
+use App\Filament\Resources\FaqResource;
 use Filament\Actions;
-use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Filament\Notifications\Notification;
 
-class EditArticle extends EditRecord
+class EditFaq extends EditRecord
 {
-    protected static string $resource = ArticleResource::class;
+    protected static string $resource = FaqResource::class;
 
     protected function getHeaderActions(): array
     {
@@ -30,7 +30,7 @@ class EditArticle extends EditRecord
     {
         return Notification::make()
             ->success()
-            ->title('Article created')
-            ->body('Article created successfully.');
+            ->title('Faq created')
+            ->body('Faq created successfully.');
     }
 }

@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -32,7 +33,16 @@ class ArticleResource extends Resource
                 TextInput::make('title')->required()->placeholder('title'),
                 Select::make('category_id')->label('Category')->options(Category::all()->pluck('name', 'id')),
                 TextInput::make('author')->placeholder('Author'),
-                FileUpload::make('image'),
+                FileUpload::make('image')
+                    ->imageEditor()
+                    ->imageEditorAspectRatios([
+                        '16:9',
+                        '4:3',
+                        '1:1',
+                    ])
+                    ->disk('public')
+                    ->directory('articles')
+                    ->previewable(),
                 RichEditor::make('content')->columnSpan(2),
                 Select::make('status')->options([
                     '1' => 'Active',
@@ -47,6 +57,7 @@ class ArticleResource extends Resource
             ->columns([
                 TextColumn::make('title')->searchable(),
                 TextColumn::make('author'),
+                ImageColumn::make('image')->label('Image'),
             ])
             ->filters([
                 //
